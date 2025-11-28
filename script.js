@@ -73,6 +73,26 @@ function createItemRow(item){
 
   const btnMinus1 = document.createElement('button');
   btnMinus1.className = 'btn minus';
+  btnMinus1.textContent = '-1';
+  btnMinus1.addEventListener('click', () => changeCount(item.id, -1));
+
+  const spanCount = document.createElement('div');
+  spanCount.className = 'count';
+  spanCount.textContent = '0';
+  spanCount.id = `count-${item.id}`;
+
+  const btnPlus1 = document.createElement('button');
+  btnPlus1.className = 'btn plus';
+  btnPlus1.textContent = '+1';
+  btnPlus1.addEventListener('click', () => changeCount(item.id, +1));
+
+  const btnPlus5 = document.createElement('button');
+  btnPlus5.className = 'btn small plus';
+  btnPlus5.textContent = '+5';
+  btnPlus5.addEventListener('click', () => changeCount(item.id, +5));
+
+  controls.appendChild(btnMinus5);
+  controls.appendChild(btnMinus1);
   controls.appendChild(spanCount);
   controls.appendChild(btnPlus1);
   controls.appendChild(btnPlus5);
