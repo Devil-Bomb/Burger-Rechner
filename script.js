@@ -1,4 +1,4 @@
-// Bestell-Rechner • Burger Shot
+// Bestell-Rechner • BurgerShot
 // Left = badge + single-line name, right = fixed controls
 // Clears lists before render to avoid duplicates.
 
@@ -17,7 +17,7 @@ const ITEMS = [
   { id: 'ice', name: 'Shot Ice', category: 'drink', price: 250 },
 ];
 
-// Geändert: Restaurantname ohne Leerzeichen -> "BurgerShot"
+// Restaurantname ohne Leerzeichen -> "BurgerShot"
 const RESTAURANT_NAME = 'BurgerShot';
 
 const state = {};
