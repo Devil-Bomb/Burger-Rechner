@@ -139,10 +139,14 @@ function updateTotals(){
   const totalFoodEl = document.getElementById('total-food');
   const totalDrinkEl = document.getElementById('total-drink');
   const totalPriceEl = document.getElementById('total-price');
+  const invoiceArea = document.getElementById('invoiceText');
 
   if(totalFoodEl) totalFoodEl.textContent = totalFood;
   if(totalDrinkEl) totalDrinkEl.textContent = totalDrink;
   if(totalPriceEl) totalPriceEl.textContent = currency(totalPrice);
+
+  // Auto-update invoice area so user sees current invoice immediately
+  if(invoiceArea) invoiceArea.value = composeInvoiceText();
 }
 
 function formatDateDDMMYY(date = new Date()){
@@ -199,6 +203,28 @@ function copyInvoiceToClipboard(){
   }
 }
 
+function printInvoice(){
+  const text = composeInvoiceText();
+  // open minimal print window with preformatted text
+  const w = window.open('', '_blank', 'noopener,noreferrer');
+  if(!w) { alert('Popup blockiert? Druckfunktion nicht möglich.'); return; }
+  const html = `
+    <!doctype html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Rechnung - ${RESTAURANT_NAME}</title>
+        <style>body{font-family:system-ui, Arial; padding:20px; white-space:pre-wrap;}</style>
+      </head>
+      <body><pre>${text}</pre></body>
+    </html>`;
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+  w.print();
+  // leave window open so user can inspect if needed
+}
+
 function resetAll(){
   for(const k in state) state[k] = 0;
   ITEMS.forEach(i => {
@@ -215,8 +241,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!window.__burgershot_initialized) {
     const copyBtn = document.getElementById('copyInvoice');
     const resetBtn = document.getElementById('resetAll');
+    const printBtn = document.getElementById('printInvoice');
     if(copyBtn) copyBtn.addEventListener('click', copyInvoiceToClipboard);
     if(resetBtn) resetBtn.addEventListener('click', resetAll);
+    if(printBtn) printBtn.addEventListener('click', printInvoice);
     window.__burgershot_initialized = true;
   }
 
